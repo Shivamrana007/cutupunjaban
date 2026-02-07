@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Day - Dark Mode 🖤</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <style>
+        /* THEME: Deep Black & Purple */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden; /* Prevents full page scroll */
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 1. MOTION GRAPHICS: Moving Dark Blur Tint */
+        .blur-blob {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 150vw;
+            height: 150vw;
+            background: radial-gradient(circle, rgba(109, 40, 217, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
+            transform: translate(-50%, -50%);
+            filter: blur(80px);
+            z-index: 0;
+            animation: moveBlob 10s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes moveBlob {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-40%, -60%) scale(1.2); opacity: 0.8; }
+            100% { transform: translate(-60%, -40%) scale(1); opacity: 0.5; }
+        }
+
+        /* 2. FLOATING RED HEARTS */
+        .hearts-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .heart-anim {
+            position: absolute;
+            font-size: 2rem;
+            color: #ef4444;
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+            opacity: 0;
+            animation: floatHeart 7s infinite linear;
+        }
+        
+        @keyframes floatHeart {
+            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            50% { transform: translateY(50vh) scale(1.2) rotate(20deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(0.8) rotate(-20deg); opacity: 0; }
+        }
+
+        /* Dark Glassmorphism */
+        .glass-dark {
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            border-radius: 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.6s ease-in-out;
+            padding: 20px;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        .screen.active {
+            opacity: 1; visibility: visible;
+        }
+
+        /* Buttons */
+        .neon-btn {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            box-shadow: 0 0 10px #ef4444;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 20; /* Ensures clickable */
+        }
+        .neon-btn:hover {
+            background: #ef4444;
+            color: black;
+            box-shadow: 0 0 30px #ef4444;
+        }
+
+        .purple-btn {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #a855f7;
+            color: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 20;
+        }
+        .purple-btn:hover {
+            background: #a855f7;
+            color: white;
+            box-shadow: 0 0 30px #a855f7;
+        }
+
+        .hidden-msg { display: none; }
+        
+        /* Scrollbar styling for Page 4 */
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3); 
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #581c87; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blur-blob"></div>
+
+    <div class="hearts-container">
+        <div class="heart-anim" style="left: 10%; animation-delay: 0s;">❤️</div>
+        <div class="heart-anim" style="left: 30%; animation-delay: 3s; font-size: 1.5rem;">💔</div>
+        <div class="heart-anim" style="left: 50%; animation-delay: 1.5s;">❤️</div>
+        <div class="heart-anim" style="left: 70%; animation-delay: 5s;">🌹</div>
+        <div class="heart-anim" style="left: 85%; animation-delay: 2s;">❤️</div>
+        <div class="heart-anim" style="left: 20%; animation-delay: 4s;">❤️</div>
+    </div>
+
+    <div id="page1" class="screen active text-center">
+        <h1 class="text-6xl md:text-8xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-600 drop-shadow-2xl">
+            Maa Ka Ladlee Meoww 🐾
+        </h1>
+        <p class="text-xl text-gray-400 mb-12 font-light tracking-widest">DARK MODE · PURE HEART</p>
+        <button onclick="goToPage(2)" class="neon-btn px-12 py-4 rounded-full text-xl font-bold">
+            ENTER
+        </button>
+    </div>
+
+    <div id="page2" class="screen">
+        <div class="glass-dark p-10 max-w-md text-center">
+            <h2 class="text-3xl font-bold mb-4 text-purple-400">Yo Bestie...</h2>
+            <p class="text-lg text-gray-300 leading-relaxed">
+                I switched the lights off because things are about to get real deep. And you never know how deep it is 🖤
+            </p>
+        </div>
+        <button onclick="goToPage(3)" class="mt-8 text-red-500 font-bold underline hover:text-red-400 transition tracking-wide cursor-pointer z-20">
+            Next &rarr;
+        </button>
+    </div>
+
+    <div id="page3" class="screen">
+        <div class="text-center">
+            <h2 class="text-2xl mb-10 text-gray-300 font-light">Unlock the Feel </h2>
+            
+            <button onclick="goToPage(4)" class="relative group cursor-pointer z-20">
+                <div class="absolute inset-0 bg-red-600 blur-xl opacity-50 group-hover:opacity-100 transition duration-500 rounded-full"></div>
+                <div class="relative bg-black border-2 border-red-500 text-red-500 w-32 h-32 rounded-full flex items-center justify-center text-4xl shadow-2xl group-hover:scale-110 transition transform">
+                    🔒
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div id="page4" class="screen">
+        <div class="glass-dark p-6 md:p-12 max-w-2xl text-center border-t-2 border-purple-600 flex flex-col max-h-[85vh]">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-red-500 uppercase tracking-widest shrink-0">
+                To My FOREVER SUPPORTER 🎬
+            </h2>
+            
+            <div class="overflow-y-auto custom-scroll pr-2 mb-4">
+                <p class="text-sm md:text-lg leading-loose text-gray-200 font-mono text-justify md:text-center">
+                    "Happy Promise Day Mere YAARA ! ✨ <br><br>
+                    Yaar, honestly bolun toh mujhe nahi pata main tere bina kya karta. Life mein jab bhi main low feel karta tha ya jab sab kuch mushkil lagta tha, tu hamesha wahan thi mujhe sambhalne ke liye. 🥺 Tune sirf mujhe support hi nahi kiya, balki tab cheer kiya jab mujhe khud pe bhi bharosa nahi tha. You cared for me in ways jo shayad main kabhi lafzon mein bata bhi na paun. <br><br>
+                    Aaj is Promise Day par, main tujhse dil se ek pakka waada karta hoon: Jaise tune har mod par mera saath diya hai, main bhi hamesha tere saath khada rahunga. 🤝 Chahe life kitni bhi busy ho jaye, chahe hum kitne bhi dur kyun na hon, tu meri priority hamesha rahegi. I promise to be your biggest cheerleader, your safe space, and the person you can always count on. 🤗 <br><br>
+                    Thank you for being the bestest friend anyone could ask for. I promise humari ye dosti main kabhi tootne nahi dunga...aur jab se tu aai meri jindagi me tab se ek himmat si mili h aur ek khusi si aagai h you are very special for me.....and ab unn purani problems ko bhul kr aage focus krenge jaisa tune mujhe bola hai aur yes jaise tu meri supporter h waise hi mai bhi hu to kabhi bhi jrurat pde to bs ek baar bol diyo aur ek chiz ab duniya ke log jaye bhar me idfc about them..... and now i've you and now i dont need anyone. Love you infinite! & Always ❤️🌸✨"
+                </p>
+            </div>
+
+            <button onclick="goToPage(5)" class="purple-btn px-8 py-3 rounded-full font-bold shrink-0 mx-auto">
+                See The Proof &rarr;
+            </button>
+        </div>
+    </div>
+
+    <div id="page5" class="screen">
+        <div class="glass-dark p-6 max-w-lg text-center">
+            <h2 class="text-2xl font-bold mb-6 text-purple-400 tracking-wide">LOCKED IN 4EVER LIFE 🤞</h2>
+            
+            <div class="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.3)] border-2 border-purple-500 p-1 bg-black transform hover:scale-105 transition duration-500 mb-6">
+                <img src="https://images.unsplash.com/photo-1535581652167-3d6693c94646?q=80&w=1000&auto=format&fit=crop" alt="Our Promise" class="w-full h-64 object-cover rounded-lg opacity-90 hover:opacity-100 transition">
+            </div>
+
+            <p class="text-md text-red-400 font-mono">"No exits. Only us. Forever."</p>
+        </div>
+        <button onclick="goToPage(6)" class="mt-8 neon-btn px-8 py-3 rounded-full font-bold">
+            The 3 Promises &rarr;
+        </button>
+    </div>
+
+    <div id="page6" class="screen">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500 text-center">
+            MY PROMISES TO YOU...
+        </h2>
+        
+        <div class="flex flex-wrap justify-center gap-6 w-full max-w-4xl">
+            <div class="flex flex-col items-center">
+                <button onclick="revealMessage('support')" class="float-anim bg-black text-blue-500 border border-blue-500 px-8 py-4 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.5)] text-xl font-bold w-48 hover:bg-blue-900 transition cursor-pointer">
+                    Support 🛡️
+                </button>
+                <div id="msg-support" class="hidden-msg mt-4 p-4 glass-dark w-60 text-sm text-blue-200 border-blue-900 text-center">
+                    "I got you. Always. Even when you're wrong (but I'll tell you later lol)."
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <button onclick="revealMessage('hype')" class="float-anim bg-black text-green-500 border border-green-500 px-8 py-4 rounded-xl shadow-[0_0_15px_rgba(34,197,94,0.5)] text-xl font-bold w-48 hover:bg-green-900 transition cursor-pointer" style="animation-delay: 0.2s;">
+                    Hype ⚡
+                </button>
+                <div id="msg-hype" class="hidden-msg mt-4 p-4 glass-dark w-60 text-sm text-green-200 border-green-900 text-center">
+                    "Your wins are my wins. I'm your #1 Fan who cheers for you in all over crowd ."
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <button onclick="revealMessage('bond')" class="float-anim bg-black text-red-500 border border-red-500 px-8 py-4 rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.5)] text-xl font-bold w-48 hover:bg-red-900 transition cursor-pointer" style="animation-delay: 0.4s;">
+                    Ride or Die 💀
+                </button>
+                <div id="msg-bond" class="hidden-msg mt-4 p-4 glass-dark w-60 text-sm text-red-200 border-red-900 text-center">
+                    "We are in this together. Till the end of the line."
+                </div>
+            </div>
+        </div>
+
+        <button onclick="goToPage(1)" class="mt-16 text-gray-600 hover:text-white text-sm transition tracking-widest uppercase cursor-pointer z-20">Restart Experience</button>
+    </div>
+
+    <script>
+        // NAVIGATION
+        function goToPage(pageNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('page' + pageNum).classList.add('active');
+
+            if(pageNum === 4) {
+                gsap.from("#page4 h2", {y: -30, opacity: 0, duration: 1, ease: "power2.out"});
+                gsap.from("#page4 p", {y: 30, opacity: 0, duration: 1, delay: 0.3});
+            }
+            if(pageNum === 6) {
+                startFloating();
+            }
+        }
+
+        // REVEAL MESSAGES
+        function revealMessage(id) {
+            // Hide others first (optional, keeps it clean)
+            document.querySelectorAll('.hidden-msg').forEach(m => m.style.display = 'none');
+            
+            const msg = document.getElementById('msg-' + id);
+            msg.style.display = 'block';
+            gsap.fromTo(msg, {opacity: 0, y: -10}, {opacity: 1, y: 0, duration: 0.4});
+        }
+
+        // FLOATING BUTTONS ANIMATION
+        function startFloating() {
+            gsap.to(".float-anim", {
+                y: -15,
+                duration: 1.8,
+                repeat: -1,
+                yoyo: true,
+                stagger: 0.2,
+                ease: "sine.inOut"
+            });
+        }
+
+        // INTRO ANIMATION
+        window.onload = () => {
+            gsap.from("#page1 h1", {scale: 0.8, opacity: 0, duration: 1.5, ease: "expo.out"});
+        };
+    </script>
+</body>
+</html>
